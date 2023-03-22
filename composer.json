@@ -1,6 +1,6 @@
 {
     "name": "psr-discovery/discovery",
-    "description": "Effortless PSR integrations by automatically finding and instantiating available implementations with zero configuration.",
+    "description": "Effortlessly integrate PSR compatible libraries by automatically finding and instantiating them with zero configuration.",
     "license": "MIT",
     "type": "library",
     "keywords": [
