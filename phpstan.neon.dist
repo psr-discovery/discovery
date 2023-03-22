@@ -12,6 +12,7 @@ parameters:
     ignoreErrors:
         - '#Method PsrDiscovery\\Discover::(.*)\(\) should return Psr\\(.*) but returns object\|null.#'
         - '#Method PsrDiscovery\\Discover::(.*)\(\) has invalid return type Psr\\(.*).#'
+        - '#Variable variables are not allowed.#'
 
     reportUnmatchedIgnoredErrors: true
     treatPhpDocTypesAsCertain: false
