@@ -12,13 +12,37 @@ use PsrDiscovery\Exceptions\PackageRequired;
 
 final class Discover
 {
+    /**
+     * @var string
+     */
     private const PSR_CACHE                 = '\Psr\Cache\CacheItemPoolInterface';
+    /**
+     * @var string
+     */
     private const PSR_CONTAINER             = '\Psr\Container\ContainerInterface';
+    /**
+     * @var string
+     */
     private const PSR_EVENT_DISPATCHER      = '\Psr\EventDispatcher\EventDispatcherInterface';
+    /**
+     * @var string
+     */
     private const PSR_HTTP_CLIENT           = '\Psr\Http\Client\ClientInterface';
+    /**
+     * @var string
+     */
     private const PSR_HTTP_REQUEST_FACTORY  = '\Psr\Http\Message\RequestFactoryInterface';
+    /**
+     * @var string
+     */
     private const PSR_HTTP_RESPONSE_FACTORY = '\Psr\Http\Message\ResponseFactoryInterface';
+    /**
+     * @var string
+     */
     private const PSR_HTTP_STREAM_FACTORY   = '\Psr\Http\Message\StreamFactoryInterface';
+    /**
+     * @var string
+     */
     private const PSR_LOG                   = '\Psr\Log\LoggerInterface';
 
     /**
@@ -43,10 +67,10 @@ final class Discover
         }
 
         // Try to find a candidate that satisfies the version constraints.
-        foreach (self::$candidates[$interface]->all() as $candidate) {
-            /** @var CandidateEntity $candidate */
-            if (Composer::satisfies(new Version(), $candidate->getPackage(), $candidate->getVersion())) {
-                return self::$discovered[$interface] = $candidate->build();
+        foreach (self::$candidates[$interface]->all() as $candidateEntity) {
+            /** @var CandidateEntity $candidateEntity */
+            if (Composer::satisfies(new Version(), $candidateEntity->getPackage(), $candidateEntity->getVersion())) {
+                return self::$discovered[$interface] = $candidateEntity->build();
             }
         }
 

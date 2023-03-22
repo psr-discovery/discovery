@@ -57,9 +57,7 @@ final class CandidatesCollection
 
         $candidates                           = array_reverse($candidates, true);
         $candidates[$candidate->getPackage()] = $candidate;
-        $candidates                           = array_reverse($candidates, true);
-
-        $this->candidates = $candidates;
+        $this->candidates                           = array_reverse($candidates, true);
     }
 
     public function remove(
@@ -67,7 +65,7 @@ final class CandidatesCollection
     ): bool {
         $candidate = $this->candidates[$package] ?? null;
 
-        if (null === $candidate) {
+        if (!$candidate instanceof \PsrDiscovery\Entities\CandidateEntity) {
             return false;
         }
 
