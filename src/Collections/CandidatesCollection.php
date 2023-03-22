@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PsrDiscovery\Collections;
 
+use InvalidArgumentException;
 use PsrDiscovery\Entities\CandidateEntity;
 
 final class CandidatesCollection
@@ -9,23 +12,20 @@ final class CandidatesCollection
     /**
      * @param array<string,CandidateEntity> $candidates
      */
-    public static function create(
-        array $candidates = [],
-    ): self {
-        return new self($candidates);
-    }
-
-    /**
-     * @param array<string,CandidateEntity> $candidates
-     */
     public function __construct(
         private array $candidates = [],
     ) {
-        foreach($this->candidates as $candidate) {
+        foreach ($this->candidates as $candidate) {
             if (! $candidate instanceof CandidateEntity) {
-                throw new \InvalidArgumentException('CandidatesCollection::__construct only accepts an array of valid CandidateEntities.');
+                throw new InvalidArgumentException('CandidatesCollection::__construct only accepts an array of valid CandidateEntities.');
             }
         }
+    }
+
+    public function add(
+        CandidateEntity $candidate,
+    ): ?object {
+        return $this->candidates[$candidate->getPackage()] = $candidate;
     }
 
     /**
@@ -36,29 +36,10 @@ final class CandidatesCollection
         return $this->candidates;
     }
 
-    public function add(
-        CandidateEntity $candidate,
-    ): ?object {
-        return $this->candidates[$candidate->getPackage()] = $candidate;
-    }
-
     public function get(
         string $package,
     ): ?CandidateEntity {
         return $this->candidates[$package] instanceof CandidateEntity ? $this->candidates[$package] : null;
-    }
-
-    public function remove(
-        string $package,
-    ): bool {
-        $candidate = $this->candidates[$package] ?? null;
-
-        if (null === $candidate) {
-            return false;
-        }
-
-        unset($this->candidates[$package]);
-        return true;
     }
 
     public function has(
@@ -74,10 +55,33 @@ final class CandidatesCollection
 
         unset($candidates[$candidate->getPackage()]);
 
-        $candidates = array_reverse($candidates, true);
+        $candidates                           = array_reverse($candidates, true);
         $candidates[$candidate->getPackage()] = $candidate;
-        $candidates = array_reverse($candidates, true);
+        $candidates                           = array_reverse($candidates, true);
 
         $this->candidates = $candidates;
+    }
+
+    public function remove(
+        string $package,
+    ): bool {
+        $candidate = $this->candidates[$package] ?? null;
+
+        if (null === $candidate) {
+            return false;
+        }
+
+        unset($this->candidates[$package]);
+
+        return true;
+    }
+
+    /**
+     * @param array<string,CandidateEntity> $candidates
+     */
+    public static function create(
+        array $candidates = [],
+    ): self {
+        return new self($candidates);
     }
 }
