@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <coverage>
+        <include>
+            <directory suffix=".php">./src/</directory>
+        </include>
+
+        <exclude>
+            <directory suffix=".php">./src/Contracts</directory>
+            <directory suffix=".php">./src/Exceptions</directory>
+        </exclude>
+
+        <report>
+            <clover outputFile="coverage/clover.xml" />
+            <cobertura outputFile="coverage/cobertura.xml"/>
+        </report>
+    </coverage>
+
+    <testsuites>
+        <testsuite name="unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

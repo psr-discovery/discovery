@@ -1,0 +1,17 @@
+includes:
+    - ./vendor/phpstan/phpstan-strict-rules/rules.neon
+
+parameters:
+    level: max
+
+    paths:
+        - src
+
+    bootstrapFiles:
+
+    ignoreErrors:
+        - '#Method PsrDiscovery\\Discover::(.*)\(\) should return Psr\\(.*) but returns object\|null.#'
+        - '#Method PsrDiscovery\\Discover::(.*)\(\) has invalid return type Psr\\(.*).#'
+
+    reportUnmatchedIgnoredErrors: true
+    treatPhpDocTypesAsCertain: false

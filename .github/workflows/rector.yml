@@ -1,0 +1,47 @@
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+      - ready_for_review
+      - converted_to_draft
+      - review_requested
+  push:
+    branches:
+      - 1.x
+
+jobs:
+  run:
+    name: php-cs-fixer
+    runs-on: ${{ matrix.operating-systems }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-systems:
+          - ubuntu-latest
+        php-versions:
+          - 8.1
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          coverage: pcov
+
+      - id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - run: vendor/bin/rector process src --dry-run
