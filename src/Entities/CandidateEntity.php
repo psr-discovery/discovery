@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace PsrDiscovery\Entities;
 
-final class CandidateEntity implements \Stringable
+use Stringable;
+
+final class CandidateEntity implements Stringable
 {
     public function __construct(
         private string $package,

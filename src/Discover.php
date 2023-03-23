@@ -16,30 +16,37 @@ final class Discover
      * @var string
      */
     private const PSR_CACHE                 = '\Psr\Cache\CacheItemPoolInterface';
+
     /**
      * @var string
      */
     private const PSR_CONTAINER             = '\Psr\Container\ContainerInterface';
+
     /**
      * @var string
      */
     private const PSR_EVENT_DISPATCHER      = '\Psr\EventDispatcher\EventDispatcherInterface';
+
     /**
      * @var string
      */
     private const PSR_HTTP_CLIENT           = '\Psr\Http\Client\ClientInterface';
+
     /**
      * @var string
      */
     private const PSR_HTTP_REQUEST_FACTORY  = '\Psr\Http\Message\RequestFactoryInterface';
+
     /**
      * @var string
      */
     private const PSR_HTTP_RESPONSE_FACTORY = '\Psr\Http\Message\ResponseFactoryInterface';
+
     /**
      * @var string
      */
     private const PSR_HTTP_STREAM_FACTORY   = '\Psr\Http\Message\StreamFactoryInterface';
+
     /**
      * @var string
      */

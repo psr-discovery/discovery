@@ -55,8 +55,8 @@ final class CandidatesCollection
 
         unset($candidates[$candidate->getPackage()]);
 
-        $candidates                           = array_reverse($candidates, true);
-        $candidates[$candidate->getPackage()] = $candidate;
+        $candidates                                 = array_reverse($candidates, true);
+        $candidates[$candidate->getPackage()]       = $candidate;
         $this->candidates                           = array_reverse($candidates, true);
     }
 
@@ -65,7 +65,7 @@ final class CandidatesCollection
     ): bool {
         $candidate = $this->candidates[$package] ?? null;
 
-        if (!$candidate instanceof \PsrDiscovery\Entities\CandidateEntity) {
+        if (! $candidate instanceof \PsrDiscovery\Entities\CandidateEntity) {
             return false;
         }
 

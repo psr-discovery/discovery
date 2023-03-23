@@ -24,7 +24,7 @@ interface ImplementationContract
     /**
      * Discover and instantiate a matching implementation.
      */
-    public static function discover();
+    public static function discover(): ?object;
 
     /**
      * Prefer a candidate over all others.
@@ -43,10 +43,12 @@ interface ImplementationContract
     /**
      * Return the singleton instance of the matching implementation.
      */
-    public static function singleton();
+    public static function singleton(): ?object;
 
     /**
      * Use a specific implementation instance, overriding the discovery process.
+     *
+     * @param ?object $instance
      */
     public static function use(?object $instance): void;
 }
