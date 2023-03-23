@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PsrDiscovery\Entities;
 
+use Closure;
 use Stringable;
 
 final class CandidateEntity implements Stringable
@@ -11,7 +12,7 @@ final class CandidateEntity implements Stringable
     public function __construct(
         private string $package,
         private string $version,
-        private callable $builder,
+        private Closure $builder,
     ) {
     }
 
@@ -41,7 +42,7 @@ final class CandidateEntity implements Stringable
     public static function create(
         string $package,
         string $version,
-        callable $builder,
+        Closure $builder,
     ): self {
         return new self($package, $version, $builder);
     }
