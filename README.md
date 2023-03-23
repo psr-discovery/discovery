@@ -99,7 +99,7 @@ Please see the [psr-discovery/event-dispatcher-implementations](https://github.c
 Installation:
 
 ```bash
-composer require --dev psr-discovery/containers-implementations
+composer require --dev psr-discovery/container-implementations
 ```
 
 Usage:
@@ -110,7 +110,7 @@ use PsrDiscovery\Discover;
 $container = Discover::container();
 ```
 
-Please see the [psr-discovery/containers-implementations](https://github.com/psr-discovery/containers-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
+Please see the [psr-discovery/container-implementations](https://github.com/psr-discovery/container-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
 
 ### PSR-6 Cache
 
