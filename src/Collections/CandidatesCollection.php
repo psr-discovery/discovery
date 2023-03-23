@@ -6,6 +6,7 @@ namespace PsrDiscovery\Collections;
 
 use InvalidArgumentException;
 use PsrDiscovery\Entities\CandidateEntity;
+use function array_key_exists;
 
 final class CandidatesCollection
 {
@@ -54,9 +55,19 @@ final class CandidatesCollection
     }
 
     public function prefer(
-        CandidateEntity $candidate,
+        string $candidate,
     ): void {
         $candidates = $this->candidates;
+        $candidate  = trim($candidate);
+
+        if ('' === $candidate || ! array_key_exists($candidate, $candidates)) {
+            return;
+        }
+
+        /**
+         * @var CandidateEntity $candidate
+         */
+        $candidate = $candidates[$candidate];
 
         unset($candidates[$candidate->getPackage()]);
 
