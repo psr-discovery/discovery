@@ -46,7 +46,7 @@ use PsrDiscovery\Discovery;
 $httpClient = Discovery::httpClient();
 ```
 
-Please see the [psr-discovery/http-client-implementations](https://github.com/psr-discovery/http-client-implementations) repository for a list of the supported library implementations. Pull requests are welcome to add support for additional libraries.
+Please see the [psr-discovery/http-client-implementations](https://github.com/psr-discovery/http-client-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
 
 ### PSR-17 HTTP Factories
 
@@ -74,7 +74,7 @@ $streamFactory = Discovery::httpStreamFactory();
 $request = $requestFactory->createRequest('GET', 'https://example.com');
 ```
 
-Please see the [psr-discovery/http-factory-implementations](https://github.com/psr-discovery/http-factory-implementations) repository for a list of the supported library implementations. Pull requests are welcome to add support for additional libraries.
+Please see the [psr-discovery/http-factory-implementations](https://github.com/psr-discovery/http-factory-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
 
 ### PSR-14 Event Dispatchers
 
@@ -92,7 +92,7 @@ use PsrDiscovery\Discovery;
 $eventDispatcher = Discovery::eventDispatcher();
 ```
 
-Please see the [psr-discovery/event-dispatcher-implementations](https://github.com/psr-discovery/event-dispatcher-implementations) repository for a list of the supported library implementations. Pull requests are welcome to add support for additional libraries.
+Please see the [psr-discovery/event-dispatcher-implementations](https://github.com/psr-discovery/event-dispatcher-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
 
 ### PSR-11 Containers
 
@@ -110,7 +110,7 @@ use PsrDiscovery\Discovery;
 $container = Discovery::container();
 ```
 
-Please see the [psr-discovery/containers-implementations](https://github.com/psr-discovery/containers-implementations) repository for a list of the supported library implementations. Pull requests are welcome to add support for additional libraries.
+Please see the [psr-discovery/containers-implementations](https://github.com/psr-discovery/containers-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
 
 ### PSR-6 Cache
 
@@ -128,7 +128,7 @@ use PsrDiscovery\Discovery;
 $cache = Discovery::cache();
 ```
 
-Please see the [psr-discovery/cache-implementations](https://github.com/psr-discovery/cache-implementations) repository for a list of the supported library implementations. Pull requests are welcome to add support for additional libraries.
+Please see the [psr-discovery/cache-implementations](https://github.com/psr-discovery/cache-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
 
 ### PSR-3 Loggers
 
@@ -146,7 +146,7 @@ use PsrDiscovery\Discovery;
 $log = Discovery::log();
 ```
 
-Please see the [psr-discovery/log-implementations](https://github.com/psr-discovery/log-implementations) repository for a list of the supported library implementations. Pull requests are welcome to add support for additional libraries.
+Please see the [psr-discovery/log-implementations](https://github.com/psr-discovery/log-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
 
 ## Handling Failures
 
