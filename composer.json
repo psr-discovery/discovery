@@ -1,6 +1,6 @@
 {
     "name": "psr-discovery/discovery",
-    "description": "Lightweight library that discovers available implementations by searching for a list of well-known classes that implement the relevant PSR interfaces, and returning an instance of the first one that is found.",
+    "description": "Lightweight library that discovers available PSR implementations by searching for a list of well-known classes that implement the relevant interfaces, and returning an instance of the first one that is found.",
     "license": "MIT",
     "type": "library",
     "keywords": [
