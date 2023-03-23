@@ -7,7 +7,7 @@ This is largely intended for inclusion in libraries like SDKs that wish to suppo
 -   [Requirements](#requirements)
 -   [Installation](#installation)
     -   [PSR-18 HTTP Clients](#psr-18-http-clients)
-    -   [PSR-17 HTTP Clients](#psr-17-http-clients)
+    -   [PSR-17 HTTP Factories](#psr-17-http-factories)
     -   [PSR-14 Event Dispatchers](#psr-14-event-dispatchers)
     -   [PSR-11 Containers](#psr-11-containers)
     -   [PSR-6 Cache](#psr-6-cache)
@@ -48,7 +48,7 @@ $httpClient = Discovery::httpClient();
 
 Please see the [psr-discovery/http-client-implementations](https://github.com/psr-discovery/http-client-implementations) repository for a list of the supported library implementations. Pull requests are welcome to add support for additional libraries.
 
-### PSR-17 HTTP Clients
+### PSR-17 HTTP Factories
 
 Installation:
 
@@ -61,9 +61,17 @@ Usage:
 ```php
 use PsrDiscovery\Discovery;
 
+// Returns a PSR-17 RequestFactoryInterface instance
 $requestFactory = Discovery::httpRequestFactory();
+
+// Returns a PSR-17 ResponseFactoryInterface instance
 $responseFactory = Discovery::httpResponseFactory();
+
+// Returns a PSR-17 StreamFactoryInterface instance
 $streamFactory = Discovery::httpStreamFactory();
+
+// Returns a PSR-7 RequestInterface instance
+$request = $requestFactory->createRequest('GET', 'https://example.com');
 ```
 
 Please see the [psr-discovery/http-factory-implementations](https://github.com/psr-discovery/http-factory-implementations) repository for a list of the supported library implementations. Pull requests are welcome to add support for additional libraries.
