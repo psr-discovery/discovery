@@ -14,6 +14,10 @@ This is largely intended for inclusion in libraries like SDKs that wish to suppo
     -   [PSR-3 Loggers](#psr-3-loggers)
 -   [Handling Failures](#handling-failures)
 -   [Exceptions](#exceptions)
+-   [Singletons](#singletons)
+-   [Mocking Priority](#mocking-priority)
+-   [Preferring an Implementation](#preferring-an-implementation)
+-   [Using a Specific Implementation](#using-a-specific-implementation)
 
 ## Requirements
 
@@ -157,6 +161,73 @@ if ($httpClient === null) {
 ## Exceptions
 
 The library will expose a `PsrDiscovery\Exceptions\SupportPackageNotFoundException` when a discovery method is called, but the required support package is not installed.
+
+## Singletons
+
+By default, the discovery methods will always return a new instance of the discovered implementation. If you wish to use a singleton instance instead, simply pass `true` to the `$singleton` parameter of the discovery method.
+
+Example:
+
+```php
+use PsrDiscovery\Discovery;
+
+// $httpClient1 !== $httpClient2 (default)
+$httpClient1 = Discovery::httpClient();
+$httpClient2 = Discovery::httpClient();
+
+// $httpClient1 === $httpClient2
+$httpClient1 = Discovery::httpClient(singleton: true);
+$httpClient2 = Discovery::httpClient(singleton: true);
+```
+
+## Mocking Priority
+
+This library will give priority to searching for an available PSR mocking library, like `psr-mock/http-client-implementation` or `php-http/mock-client`.
+
+The expectation is that these mocking libraries will always be installed as development dependencies, and therefore if they are available, they are intended to be used.
+
+## Preferring an Implementation
+
+If you wish to prefer a specific implementation over others, you can use the `prefer()` on any installed discovery support libraries.
+
+Example using `psr-discovery/http-factories-implementations`:
+
+```php
+use PsrDiscovery\Discovery;
+use PsrDiscovery\Implementations\Psr17\RequestFactories;
+
+// Prefer the a specific implementation of PSR-17 over others.
+RequestFactories::prefer('nyholm/psr7');
+
+// Return an instance of Nyholm\Psr7\Factory\Psr17Factory,
+// or the next available from the list of candidates,
+// Returns null if none are discovered.
+$factory = Discovery::httpRequestFactory();
+```
+
+This will cause the discovery method to return the preferred implementation if it is available, otherwise, it will fall back to the default behavior.
+
+Note that assigning a preferred implementation will give it priority over the default preference of mocking libraries.
+
+## Using a Specific Implementation
+
+If you wish to force a specific implementation and ignore the rest of the discovery candidates, you can use the `use()` on any installed discovery support libraries.
+
+Example using `psr-discovery/http-factories-implementations`:
+
+```php
+use PsrDiscovery\Discovery;
+use PsrDiscovery\Implementations\Psr17\RequestFactories;
+
+// Only discover a specific implementation of PSR-17.
+RequestFactories::use('nyholm/psr7');
+
+// Return an instance of Nyholm\Psr7\Factory\Psr17Factory,
+// or null if it is not available.
+$factory = Discovery::httpRequestFactory();
+```
+
+This will cause the discovery method to return the preferred implementation if it is available, otherwise, it will return `null`.
 
 ---
 
