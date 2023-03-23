@@ -13,7 +13,7 @@ abstract class Implementation implements ImplementationContract
 {
     abstract public static function candidates(): CandidatesCollection;
 
-    final public static function add(CandidateEntity $candidate): void
+    public static function add(CandidateEntity $candidate): void
     {
         static::$candidates ??= static::candidates();
         static::$candidates->add($candidate);
@@ -21,7 +21,7 @@ abstract class Implementation implements ImplementationContract
         static::$using     = null;
     }
 
-    final public static function discover(): ?object
+    public static function discover(): ?object
     {
         if (null !== static::$using) {
             return static::$using;
@@ -30,7 +30,7 @@ abstract class Implementation implements ImplementationContract
         return Discover::httpClient();
     }
 
-    final public static function prefer(CandidateEntity $candidate): void
+    public static function prefer(CandidateEntity $candidate): void
     {
         static::$candidates ??= static::candidates();
         static::$candidates->prefer($candidate);
@@ -38,14 +38,14 @@ abstract class Implementation implements ImplementationContract
         static::$using     = null;
     }
 
-    final public static function set(CandidatesCollection $candidates): void
+    public static function set(CandidatesCollection $candidates): void
     {
         static::$candidates = $candidates;
         static::$singleton  = null;
         static::$using      = null;
     }
 
-    final public static function singleton(): ?object
+    public static function singleton(): ?object
     {
         if (null !== static::$using) {
             return static::$using;
@@ -54,7 +54,7 @@ abstract class Implementation implements ImplementationContract
         return static::$singleton ??= static::discover();
     }
 
-    final public static function use(?object $instance): void
+    public static function use(?object $instance): void
     {
         static::$singleton = $instance;
         static::$using     = $instance;
