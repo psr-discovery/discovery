@@ -41,9 +41,9 @@ composer require --dev psr-discovery/http-client-implementations
 Usage:
 
 ```php
-use PsrDiscovery\Discovery;
+use PsrDiscovery\Discover;
 
-$httpClient = Discovery::httpClient();
+$httpClient = Discover::httpClient();
 ```
 
 Please see the [psr-discovery/http-client-implementations](https://github.com/psr-discovery/http-client-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
@@ -59,16 +59,16 @@ composer require --dev psr-discovery/http-factory-implementations
 Usage:
 
 ```php
-use PsrDiscovery\Discovery;
+use PsrDiscovery\Discover;
 
 // Returns a PSR-17 RequestFactoryInterface instance
-$requestFactory = Discovery::httpRequestFactory();
+$requestFactory = Discover::httpRequestFactory();
 
 // Returns a PSR-17 ResponseFactoryInterface instance
-$responseFactory = Discovery::httpResponseFactory();
+$responseFactory = Discover::httpResponseFactory();
 
 // Returns a PSR-17 StreamFactoryInterface instance
-$streamFactory = Discovery::httpStreamFactory();
+$streamFactory = Discover::httpStreamFactory();
 
 // Returns a PSR-7 RequestInterface instance
 $request = $requestFactory->createRequest('GET', 'https://example.com');
@@ -87,9 +87,9 @@ composer require --dev psr-discovery/event-dispatcher-implementations
 Usage:
 
 ```php
-use PsrDiscovery\Discovery;
+use PsrDiscovery\Discover;
 
-$eventDispatcher = Discovery::eventDispatcher();
+$eventDispatcher = Discover::eventDispatcher();
 ```
 
 Please see the [psr-discovery/event-dispatcher-implementations](https://github.com/psr-discovery/event-dispatcher-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
@@ -105,9 +105,9 @@ composer require --dev psr-discovery/containers-implementations
 Usage:
 
 ```php
-use PsrDiscovery\Discovery;
+use PsrDiscovery\Discover;
 
-$container = Discovery::container();
+$container = Discover::container();
 ```
 
 Please see the [psr-discovery/containers-implementations](https://github.com/psr-discovery/containers-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
@@ -123,9 +123,9 @@ composer require --dev psr-discovery/cache-implementations
 Usage:
 
 ```php
-use PsrDiscovery\Discovery;
+use PsrDiscovery\Discover;
 
-$cache = Discovery::cache();
+$cache = Discover::cache();
 ```
 
 Please see the [psr-discovery/cache-implementations](https://github.com/psr-discovery/cache-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
@@ -141,9 +141,9 @@ composer require --dev psr-discovery/log-implementations
 Usage:
 
 ```php
-use PsrDiscovery\Discovery;
+use PsrDiscovery\Discover;
 
-$log = Discovery::log();
+$log = Discover::log();
 ```
 
 Please see the [psr-discovery/log-implementations](https://github.com/psr-discovery/log-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
@@ -155,9 +155,9 @@ If the library is unable to discover a suitable implementation, the relevant dis
 Example:
 
 ```php
-use PsrDiscovery\Discovery;
+use PsrDiscovery\Discover;
 
-$httpClient = Discovery::httpClient();
+$httpClient = Discover::httpClient();
 
 if ($httpClient === null) {
     // No suitable HTTP Client implementation was discovered.
@@ -177,15 +177,15 @@ By default, the discovery methods will always return a new instance of the disco
 Example:
 
 ```php
-use PsrDiscovery\Discovery;
+use PsrDiscovery\Discover;
 
 // $httpClient1 !== $httpClient2 (default)
-$httpClient1 = Discovery::httpClient();
-$httpClient2 = Discovery::httpClient();
+$httpClient1 = Discover::httpClient();
+$httpClient2 = Discover::httpClient();
 
 // $httpClient1 === $httpClient2
-$httpClient1 = Discovery::httpClient(singleton: true);
-$httpClient2 = Discovery::httpClient(singleton: true);
+$httpClient1 = Discover::httpClient(singleton: true);
+$httpClient2 = Discover::httpClient(singleton: true);
 ```
 
 ## Mocking Priority
@@ -201,7 +201,7 @@ If you wish to prefer a specific implementation over others, you can use the `pr
 Example using `psr-discovery/http-factories-implementations`:
 
 ```php
-use PsrDiscovery\Discovery;
+use PsrDiscovery\Discover;
 use PsrDiscovery\Implementations\Psr17\RequestFactories;
 
 // Prefer the a specific implementation of PSR-17 over others.
@@ -210,7 +210,7 @@ RequestFactories::prefer('nyholm/psr7');
 // Return an instance of Nyholm\Psr7\Factory\Psr17Factory,
 // or the next available from the list of candidates,
 // Returns null if none are discovered.
-$factory = Discovery::httpRequestFactory();
+$factory = Discover::httpRequestFactory();
 ```
 
 This will cause the discovery method to return the preferred implementation if it is available, otherwise, it will fall back to the default behavior.
@@ -224,7 +224,7 @@ If you wish to force a specific implementation and ignore the rest of the discov
 Example using `psr-discovery/http-factories-implementations`:
 
 ```php
-use PsrDiscovery\Discovery;
+use PsrDiscovery\Discover;
 use PsrDiscovery\Implementations\Psr17\RequestFactories;
 
 // Only discover a specific implementation of PSR-17.
@@ -232,7 +232,7 @@ RequestFactories::use('nyholm/psr7');
 
 // Return an instance of Nyholm\Psr7\Factory\Psr17Factory,
 // or null if it is not available.
-$factory = Discovery::httpRequestFactory();
+$factory = Discover::httpRequestFactory();
 ```
 
 This will cause the discovery method to return the preferred implementation if it is available, otherwise, it will return `null`.
