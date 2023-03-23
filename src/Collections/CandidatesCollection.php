@@ -36,6 +36,11 @@ final class CandidatesCollection
         return $this->candidates;
     }
 
+    public function clear(): void
+    {
+        $this->candidates = [];
+    }
+
     public function get(
         string $package,
     ): ?CandidateEntity {
@@ -72,6 +77,21 @@ final class CandidatesCollection
         unset($this->candidates[$package]);
 
         return true;
+    }
+
+    /**
+     * @param CandidatesCollection $candidates
+     */
+    public function set(
+        self $candidates,
+    ): void {
+        foreach ($candidates->all() as $candidateEntity) {
+            if (! $candidateEntity instanceof CandidateEntity) {
+                throw new InvalidArgumentException('CandidatesCollection::__construct only accepts an array of valid CandidateEntities.');
+            }
+        }
+
+        $this->candidates = $candidates->all();
     }
 
     /**

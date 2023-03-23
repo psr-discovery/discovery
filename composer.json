@@ -81,8 +81,8 @@
         "phpstan": "@php vendor/bin/phpstan analyze",
         "psalm:fix": "@php vendor/bin/psalter --issues=all",
         "psalm": "@php vendor/bin/psalm",
-        "rector:fix": "@php vendor/bin/rector process src",
-        "rector": "@php vendor/bin/rector process src --dry-run",
+        "rector:fix": "@php vendor/bin/rector process",
+        "rector": "@php vendor/bin/rector process --dry-run",
         "test": [
             "@pest",
             "@phpstan",

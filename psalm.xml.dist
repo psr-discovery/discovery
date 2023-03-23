@@ -15,9 +15,6 @@
 
     <issueHandlers>
         <MixedAssignment errorLevel="suppress"/>
-        <MixedArrayAssignment errorLevel="suppress"/>
-        <MixedArgument errorLevel="suppress"/>
-        <MissingPropertyType errorLevel="suppress"/>
-        <MissingParamType errorLevel="suppress"/>
+        <MixedMethodCall errorLevel="suppress"/>
     </issueHandlers>
 </psalm>

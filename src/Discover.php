@@ -7,10 +7,11 @@ namespace PsrDiscovery;
 use Composer\InstalledVersions as Composer;
 use Composer\Semver\VersionParser as Version;
 use PsrDiscovery\Collections\CandidatesCollection;
+use PsrDiscovery\Contracts\DiscoverContract;
 use PsrDiscovery\Entities\CandidateEntity;
 use PsrDiscovery\Exceptions\PackageRequired;
 
-final class Discover
+final class Discover implements DiscoverContract
 {
     /**
      * @var string
@@ -53,6 +54,16 @@ final class Discover
     private const PSR_LOG                   = '\Psr\Log\LoggerInterface';
 
     /**
+     * @var CandidatesCollection[]
+     */
+    private static array $candidates = [];
+
+    /**
+     * @var object[]
+     */
+    private static array $discovered = [];
+
+    /**
      * Discover an interface implementation from a list of well-known classes.
      *
      * @param string $interface The interface to discover.
@@ -84,15 +95,6 @@ final class Discover
         return null;
     }
 
-    /**
-     * Returns a PSR-6 Cache, or null if one cannot is not found.
-     *
-     * Compatible libraries: https://packagist.org/providers/psr/cache-implementation
-     *
-     * @return null|\Psr\Cache\CacheItemInterface A PSR-6 Cache, or null if one cannot be found.
-     *
-     * @psalm-suppress MixedMethodCall
-     */
     public static function cache(): ?object
     {
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr6\Cache';
@@ -106,15 +108,6 @@ final class Discover
         return self::discover(self::PSR_CACHE);
     }
 
-    /**
-     * Returns a PSR-11 Container, or null if one cannot is not found.
-     *
-     * Compatible libraries: https://packagist.org/providers/psr/container-implementation
-     *
-     * @return null|\Psr\Container\ContainerInterface A PSR-11 Container, or null if one cannot be found.
-     *
-     * @psalm-suppress MixedMethodCall
-     */
     public static function container(): ?object
     {
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr11\Containers';
@@ -128,15 +121,6 @@ final class Discover
         return self::discover(self::PSR_CONTAINER);
     }
 
-    /**
-     * Returns a PSR-14 Event Dispatcher, or null if one is not found.
-     *
-     * Compatible libraries: https://packagist.org/providers/psr/event-dispatcher-implementation
-     *
-     * @return null|\Psr\EventDispatcher\EventDispatcherInterface A PSR-14 Event Dispatcher, or null if one cannot be found.
-     *
-     * @psalm-suppress MixedMethodCall
-     */
     public static function eventDispatcher(): ?object
     {
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr14\EventDispatchers';
@@ -150,15 +134,6 @@ final class Discover
         return self::discover(self::PSR_EVENT_DISPATCHER);
     }
 
-    /**
-     * Returns a PSR-18 HTTP Client, or null if one is not found.
-     *
-     * Compatible providers: https://packagist.org/providers/psr/http-client-implementation
-     *
-     * @return null|\Psr\Http\Client\ClientInterface A PSR-18 HTTP Client, or null if one cannot be found.
-     *
-     * @psalm-suppress MixedMethodCall
-     */
     public static function httpClient(): ?object
     {
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr18\Clients';
@@ -172,15 +147,6 @@ final class Discover
         return self::discover(self::PSR_HTTP_CLIENT);
     }
 
-    /**
-     * Returns a PSR-17 HTTP Request factory, or null if one is not found.
-     *
-     * Compatible libraries: https://packagist.org/providers/psr/http-factory-implementation
-     *
-     * @return null|\Psr\Http\Message\RequestFactoryInterface A PSR-17 HTTP Request factory, or null if one cannot be found.
-     *
-     * @psalm-suppress MixedMethodCall
-     */
     public static function httpRequestFactory(): ?object
     {
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr17\RequestFactories';
@@ -194,15 +160,6 @@ final class Discover
         return self::discover(self::PSR_HTTP_REQUEST_FACTORY);
     }
 
-    /**
-     * Returns a PSR-17 HTTP Response factory, or null if one is not found.
-     *
-     * Compatible libraries: https://packagist.org/providers/psr/http-factory-implementation
-     *
-     * @return null|\Psr\Http\Message\ResponseFactoryInterface A PSR-17 HTTP Response factory, or null if one cannot be found.
-     *
-     * @psalm-suppress MixedMethodCall
-     */
     public static function httpResponseFactory(): ?object
     {
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr17\ResponseFactories';
@@ -216,15 +173,6 @@ final class Discover
         return self::discover(self::PSR_HTTP_RESPONSE_FACTORY);
     }
 
-    /**
-     * Returns a PSR-17 HTTP Stream factory, or null if one is not found.
-     *
-     * Compatible libraries: https://packagist.org/providers/psr/http-factory-implementation
-     *
-     * @return null|\Psr\Http\Message\StreamFactoryInterface A PSR-17 HTTP Stream factory, or null if one cannot be found.
-     *
-     * @psalm-suppress MixedMethodCall
-     */
     public static function httpStreamFactory(): ?object
     {
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr17\StreamFactories';
@@ -238,15 +186,6 @@ final class Discover
         return self::discover(self::PSR_HTTP_STREAM_FACTORY);
     }
 
-    /**
-     * Returns a PSR-3 Logger, or null if one is not found.
-     *
-     * Compatible libraries: https://packagist.org/providers/psr/log-implementation
-     *
-     * @return null|\Psr\Log\LoggerInterface A PSR-3 Logger, or null if one cannot be found.
-     *
-     * @psalm-suppress MixedMethodCall
-     */
     public static function log(): ?object
     {
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr3\Logs';
@@ -259,14 +198,4 @@ final class Discover
 
         return self::discover(self::PSR_LOG);
     }
-
-    /**
-     * @var CandidatesCollection[]
-     */
-    private static array $candidates = [];
-
-    /**
-     * @var object[]
-     */
-    private static array $discovered = [];
 }

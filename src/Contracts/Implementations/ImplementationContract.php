@@ -17,16 +17,6 @@ interface ImplementationContract
     public static function add(CandidateEntity $candidate): void;
 
     /**
-     * Return the candidates collection.
-     */
-    public static function candidates(): CandidatesCollection;
-
-    /**
-     * Discover and instantiate a matching implementation.
-     */
-    public static function discover(): ?object;
-
-    /**
      * Prefer a candidate over all others.
      *
      * @param CandidateEntity $candidate The candidate to prefer.
@@ -39,16 +29,4 @@ interface ImplementationContract
      * @param CandidatesCollection $candidates The new candidates collection.
      */
     public static function set(CandidatesCollection $candidates): void;
-
-    /**
-     * Return the singleton instance of the matching implementation.
-     */
-    public static function singleton(): ?object;
-
-    /**
-     * Use a specific implementation instance, overriding the discovery process.
-     *
-     * @param ?object $instance
-     */
-    public static function use(?object $instance): void;
 }
