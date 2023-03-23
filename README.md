@@ -1,6 +1,6 @@
-**Lightweight library that discovers available implementations by searching for a list of well-known classes that implement the relevant PSR interfaces, and returning an instance of the first one that is found.**
+**Lightweight library that discovers available PSR implementations by searching for a list of well-known classes that implement the relevant interfaces, and returning an instance of the first one that is found.**
 
-The library currently supports [PSR-18 HTTP Clients](https://www.php-fig.org/psr/psr-18/), [PSR-17 HTTP Factories](https://www.php-fig.org/psr/psr-17/), [PSR-14 Event Dispatchers](https://www.php-fig.org/psr/psr-14/), [PSR-11 Containers](https://www.php-fig.org/psr/psr-11/), [PSR-6 Cache](https://www.php-fig.org/psr/psr-6/) and [PSR-3 Loggers](https://www.php-fig.org/psr/psr-3/).
+The library currently supports [PSR-18 HTTP Clients](https://github.com/psr-discovery/http-client-implementations), [PSR-17 HTTP Factories](https://github.com/psr-discovery/http-factory-implementations), [PSR-14 Event Dispatchers](https://github.com/psr-discovery/event-dispatcher-implementations), [PSR-11 Containers](https://github.com/psr-discovery/container-implementations), [PSR-6 Cache](https://github.com/psr-discovery/cache-implementations) and [PSR-3 Loggers](https://github.com/psr-discovery/log-implementations).
 
 This is largely intended for inclusion in libraries like SDKs that wish to support PSR interfaces without requiring hard dependencies on specific implementations or demanding extra configuration by users.
 
