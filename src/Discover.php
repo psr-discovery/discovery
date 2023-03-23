@@ -9,7 +9,7 @@ use Composer\Semver\VersionParser as Version;
 use PsrDiscovery\Collections\CandidatesCollection;
 use PsrDiscovery\Contracts\DiscoverContract;
 use PsrDiscovery\Entities\CandidateEntity;
-use PsrDiscovery\Exceptions\PackageRequired;
+use PsrDiscovery\Exceptions\SupportPackageNotFoundException;
 
 final class Discover implements DiscoverContract
 {
@@ -132,7 +132,7 @@ final class Discover implements DiscoverContract
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr6\Cache';
 
         if (! class_exists($implementationsPackage)) {
-            throw new PackageRequired('PSR-6 Cache', 'psr-discovery/cache-implementations');
+            throw new SupportPackageNotFoundException('PSR-6 Cache', 'psr-discovery/cache-implementations');
         }
 
         self::$candidates[self::PSR_CACHE] ??= $implementationsPackage::candidates();
@@ -149,7 +149,7 @@ final class Discover implements DiscoverContract
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr11\Containers';
 
         if (! class_exists($implementationsPackage)) {
-            throw new PackageRequired('PSR-11 Container', 'psr-discovery/container-implementations');
+            throw new SupportPackageNotFoundException('PSR-11 Container', 'psr-discovery/container-implementations');
         }
 
         self::$candidates[self::PSR_CONTAINER] ??= $implementationsPackage::candidates();
@@ -166,7 +166,7 @@ final class Discover implements DiscoverContract
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr14\EventDispatchers';
 
         if (! class_exists($implementationsPackage)) {
-            throw new PackageRequired('PSR-14 Event Dispatcher', 'psr-discovery/event-dispatcher-implementations');
+            throw new SupportPackageNotFoundException('PSR-14 Event Dispatcher', 'psr-discovery/event-dispatcher-implementations');
         }
 
         self::$candidates[self::PSR_EVENT_DISPATCHER] ??= $implementationsPackage::candidates();
@@ -183,7 +183,7 @@ final class Discover implements DiscoverContract
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr18\Clients';
 
         if (! class_exists($implementationsPackage)) {
-            throw new PackageRequired('PSR-18 HTTP Client', 'psr-discovery/http-client-implementations');
+            throw new SupportPackageNotFoundException('PSR-18 HTTP Client', 'psr-discovery/http-client-implementations');
         }
 
         self::$candidates[self::PSR_HTTP_CLIENT] ??= $implementationsPackage::candidates();
@@ -200,7 +200,7 @@ final class Discover implements DiscoverContract
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr17\RequestFactories';
 
         if (! class_exists($implementationsPackage)) {
-            throw new PackageRequired('PSR-17 HTTP Request Factory', 'psr-discovery/http-factory-implementations');
+            throw new SupportPackageNotFoundException('PSR-17 HTTP Request Factory', 'psr-discovery/http-factory-implementations');
         }
 
         self::$candidates[self::PSR_HTTP_REQUEST_FACTORY] ??= $implementationsPackage::candidates();
@@ -217,7 +217,7 @@ final class Discover implements DiscoverContract
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr17\ResponseFactories';
 
         if (! class_exists($implementationsPackage)) {
-            throw new PackageRequired('PSR-17 HTTP Response Factory', 'psr-discovery/http-factory-implementations');
+            throw new SupportPackageNotFoundException('PSR-17 HTTP Response Factory', 'psr-discovery/http-factory-implementations');
         }
 
         self::$candidates[self::PSR_HTTP_RESPONSE_FACTORY] ??= $implementationsPackage::candidates();
@@ -234,7 +234,7 @@ final class Discover implements DiscoverContract
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr17\StreamFactories';
 
         if (! class_exists($implementationsPackage)) {
-            throw new PackageRequired('PSR-17 HTTP Stream Factory', 'psr-discovery/http-factory-implementations');
+            throw new SupportPackageNotFoundException('PSR-17 HTTP Stream Factory', 'psr-discovery/http-factory-implementations');
         }
 
         self::$candidates[self::PSR_HTTP_STREAM_FACTORY] ??= $implementationsPackage::candidates();
@@ -251,7 +251,7 @@ final class Discover implements DiscoverContract
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr3\Logs';
 
         if (! class_exists($implementationsPackage)) {
-            throw new PackageRequired('PSR-3 Logger', 'psr-discovery/log-implementations');
+            throw new SupportPackageNotFoundException('PSR-3 Logger', 'psr-discovery/log-implementations');
         }
 
         self::$candidates[self::PSR_LOG] ??= $implementationsPackage::candidates();

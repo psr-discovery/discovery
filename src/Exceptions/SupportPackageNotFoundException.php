@@ -6,7 +6,7 @@ namespace PsrDiscovery\Exceptions;
 
 use Exception;
 
-final class PackageRequired extends Exception
+final class SupportPackageNotFoundException extends Exception
 {
     /**
      * @var string
