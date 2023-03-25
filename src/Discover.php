@@ -185,7 +185,7 @@ final class Discover implements DiscoverContract
             throw new SupportPackageNotFoundException('PSR-6 Cache', 'psr-discovery/cache-implementations');
         }
 
-        self::$extendedCandidates[self::PSR_CACHE] ??= $implementationsPackage::candidatesAll();
+        self::$extendedCandidates[self::PSR_CACHE] ??= $implementationsPackage::allCandidates();
 
         return self::discoverAll(self::PSR_CACHE);
     }
@@ -215,7 +215,7 @@ final class Discover implements DiscoverContract
             throw new SupportPackageNotFoundException('PSR-11 Container', 'psr-discovery/container-implementations');
         }
 
-        self::$extendedCandidates[self::PSR_CONTAINER] ??= $implementationsPackage::candidatesAll();
+        self::$extendedCandidates[self::PSR_CONTAINER] ??= $implementationsPackage::allCandidates();
 
         return self::discoverAll(self::PSR_CONTAINER);
     }
@@ -245,7 +245,7 @@ final class Discover implements DiscoverContract
             throw new SupportPackageNotFoundException('PSR-14 Event Dispatcher', 'psr-discovery/event-dispatcher-implementations');
         }
 
-        self::$extendedCandidates[self::PSR_EVENT_DISPATCHER] ??= $implementationsPackage::candidatesAll();
+        self::$extendedCandidates[self::PSR_EVENT_DISPATCHER] ??= $implementationsPackage::allCandidates();
 
         return self::discoverAll(self::PSR_EVENT_DISPATCHER);
     }
@@ -275,7 +275,7 @@ final class Discover implements DiscoverContract
             throw new SupportPackageNotFoundException('PSR-18 HTTP Client', 'psr-discovery/http-client-implementations');
         }
 
-        self::$extendedCandidates[self::PSR_HTTP_CLIENT] ??= $implementationsPackage::candidatesAll();
+        self::$extendedCandidates[self::PSR_HTTP_CLIENT] ??= $implementationsPackage::allCandidates();
 
         return self::discoverAll(self::PSR_HTTP_CLIENT);
     }
@@ -288,7 +288,7 @@ final class Discover implements DiscoverContract
             throw new SupportPackageNotFoundException('PSR-17 HTTP Request Factory', 'psr-discovery/http-factory-implementations');
         }
 
-        self::$extendedCandidates[self::PSR_HTTP_REQUEST_FACTORY] ??= $implementationsPackage::candidatesAll();
+        self::$extendedCandidates[self::PSR_HTTP_REQUEST_FACTORY] ??= $implementationsPackage::allCandidates();
 
         return self::discoverAll(self::PSR_HTTP_REQUEST_FACTORY);
     }
@@ -318,7 +318,7 @@ final class Discover implements DiscoverContract
             throw new SupportPackageNotFoundException('PSR-17 HTTP Response Factory', 'psr-discovery/http-factory-implementations');
         }
 
-        self::$extendedCandidates[self::PSR_HTTP_RESPONSE_FACTORY] ??= $implementationsPackage::candidatesAll();
+        self::$extendedCandidates[self::PSR_HTTP_RESPONSE_FACTORY] ??= $implementationsPackage::allCandidates();
 
         return self::discoverAll(self::PSR_HTTP_RESPONSE_FACTORY);
     }
@@ -348,7 +348,7 @@ final class Discover implements DiscoverContract
             throw new SupportPackageNotFoundException('PSR-17 HTTP Stream Factory', 'psr-discovery/http-factory-implementations');
         }
 
-        self::$extendedCandidates[self::PSR_HTTP_STREAM_FACTORY] ??= $implementationsPackage::candidatesAll();
+        self::$extendedCandidates[self::PSR_HTTP_STREAM_FACTORY] ??= $implementationsPackage::allCandidates();
 
         return self::discoverAll(self::PSR_HTTP_STREAM_FACTORY);
     }
@@ -395,7 +395,7 @@ final class Discover implements DiscoverContract
             throw new SupportPackageNotFoundException('PSR-3 Logger', 'psr-discovery/log-implementations');
         }
 
-        self::$extendedCandidates[self::PSR_LOG] ??= $implementationsPackage::candidatesAll();
+        self::$extendedCandidates[self::PSR_LOG] ??= $implementationsPackage::allCandidates();
 
         return self::discoverAll(self::PSR_LOG);
     }

@@ -11,14 +11,14 @@ use PsrDiscovery\Entities\CandidateEntity;
 abstract class Implementation implements ImplementationContract
 {
     /**
-     * Return potential candidates.
-     */
-    abstract public static function candidates(): CandidatesCollection;
-
-    /**
      * Return all potential candidates, including those that cannot be instantiated automatically.
      */
-    abstract public static function candidatesAll(): CandidatesCollection;
+    abstract public static function allCandidates(): CandidatesCollection;
+
+    /**
+     * Return potential candidates that can be instantiated automatically.
+     */
+    abstract public static function candidates(): CandidatesCollection;
 
     public static function add(CandidateEntity $candidate): void
     {
