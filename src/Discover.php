@@ -116,7 +116,7 @@ final class Discover implements DiscoverContract
      *
      * @psalm-suppress MixedInferredReturnType,MixedReturnStatement,MixedMethodCall
      */
-    private static function discoverAll(string $interface): array
+    private static function discoveries(string $interface): array
     {
         if (! isset(self::$extendedCandidates[$interface])) {
             return [];
@@ -187,7 +187,7 @@ final class Discover implements DiscoverContract
 
         self::$extendedCandidates[self::PSR_CACHE] ??= $implementationsPackage::allCandidates();
 
-        return self::discoverAll(self::PSR_CACHE);
+        return self::discoveries(self::PSR_CACHE);
     }
 
     public static function container(bool $singleton = false): ?object
@@ -217,7 +217,7 @@ final class Discover implements DiscoverContract
 
         self::$extendedCandidates[self::PSR_CONTAINER] ??= $implementationsPackage::allCandidates();
 
-        return self::discoverAll(self::PSR_CONTAINER);
+        return self::discoveries(self::PSR_CONTAINER);
     }
 
     public static function eventDispatcher(bool $singleton = false): ?object
@@ -247,7 +247,7 @@ final class Discover implements DiscoverContract
 
         self::$extendedCandidates[self::PSR_EVENT_DISPATCHER] ??= $implementationsPackage::allCandidates();
 
-        return self::discoverAll(self::PSR_EVENT_DISPATCHER);
+        return self::discoveries(self::PSR_EVENT_DISPATCHER);
     }
 
     public static function httpClient(bool $singleton = false): ?object
@@ -277,7 +277,7 @@ final class Discover implements DiscoverContract
 
         self::$extendedCandidates[self::PSR_HTTP_CLIENT] ??= $implementationsPackage::allCandidates();
 
-        return self::discoverAll(self::PSR_HTTP_CLIENT);
+        return self::discoveries(self::PSR_HTTP_CLIENT);
     }
 
     public static function httpRequestFactories(): array
@@ -290,7 +290,7 @@ final class Discover implements DiscoverContract
 
         self::$extendedCandidates[self::PSR_HTTP_REQUEST_FACTORY] ??= $implementationsPackage::allCandidates();
 
-        return self::discoverAll(self::PSR_HTTP_REQUEST_FACTORY);
+        return self::discoveries(self::PSR_HTTP_REQUEST_FACTORY);
     }
 
     public static function httpRequestFactory(bool $singleton = false): ?object
@@ -320,7 +320,7 @@ final class Discover implements DiscoverContract
 
         self::$extendedCandidates[self::PSR_HTTP_RESPONSE_FACTORY] ??= $implementationsPackage::allCandidates();
 
-        return self::discoverAll(self::PSR_HTTP_RESPONSE_FACTORY);
+        return self::discoveries(self::PSR_HTTP_RESPONSE_FACTORY);
     }
 
     public static function httpResponseFactory(bool $singleton = false): ?object
@@ -350,7 +350,7 @@ final class Discover implements DiscoverContract
 
         self::$extendedCandidates[self::PSR_HTTP_STREAM_FACTORY] ??= $implementationsPackage::allCandidates();
 
-        return self::discoverAll(self::PSR_HTTP_STREAM_FACTORY);
+        return self::discoveries(self::PSR_HTTP_STREAM_FACTORY);
     }
 
     public static function httpStreamFactory(bool $singleton = false): ?object
@@ -397,6 +397,6 @@ final class Discover implements DiscoverContract
 
         self::$extendedCandidates[self::PSR_LOG] ??= $implementationsPackage::allCandidates();
 
-        return self::discoverAll(self::PSR_LOG);
+        return self::discoveries(self::PSR_LOG);
     }
 }
