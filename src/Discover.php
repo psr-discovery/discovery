@@ -64,6 +64,11 @@ final class Discover implements DiscoverContract
     private static array $discovered = [];
 
     /**
+     * @var CandidatesCollection[]
+     */
+    private static array $extendedCandidates = [];
+
+    /**
      * @var object[]
      */
     private static array $singletons = [];
@@ -100,6 +105,34 @@ final class Discover implements DiscoverContract
         }
 
         return null;
+    }
+
+    /**
+     * Discover all available interface implementations from a list of well-known classes.
+     *
+     * @param string $interface The interface to discover.
+     *
+     * @return CandidateEntity[] The discovered implementations, or null if none could be found
+     *
+     * @psalm-suppress MixedInferredReturnType,MixedReturnStatement,MixedMethodCall
+     */
+    private static function discoverAll(string $interface): array
+    {
+        if (! isset(self::$extendedCandidates[$interface])) {
+            return [];
+        }
+
+        $discovered = [];
+
+        // Try to find a candidate that satisfies the version constraints.
+        foreach (self::$extendedCandidates[$interface]->all() as $candidateEntity) {
+            /** @var CandidateEntity $candidateEntity */
+            if (Composer::satisfies(new Version(), $candidateEntity->getPackage(), $candidateEntity->getVersion())) {
+                $discovered[] = $candidateEntity;
+            }
+        }
+
+        return $discovered;
     }
 
     /**
@@ -144,6 +177,19 @@ final class Discover implements DiscoverContract
         return self::discover(self::PSR_CACHE);
     }
 
+    public static function caches(): array
+    {
+        $implementationsPackage = '\PsrDiscovery\Implementations\Psr6\Cache';
+
+        if (! class_exists($implementationsPackage)) {
+            throw new SupportPackageNotFoundException('PSR-6 Cache', 'psr-discovery/cache-implementations');
+        }
+
+        self::$extendedCandidates[self::PSR_CACHE] ??= $implementationsPackage::candidatesAll();
+
+        return self::discoverAll(self::PSR_CACHE);
+    }
+
     public static function container(bool $singleton = false): ?object
     {
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr11\Containers';
@@ -159,6 +205,19 @@ final class Discover implements DiscoverContract
         }
 
         return self::discover(self::PSR_CONTAINER);
+    }
+
+    public static function containers(): array
+    {
+        $implementationsPackage = '\PsrDiscovery\Implementations\Psr11\Containers';
+
+        if (! class_exists($implementationsPackage)) {
+            throw new SupportPackageNotFoundException('PSR-11 Container', 'psr-discovery/container-implementations');
+        }
+
+        self::$extendedCandidates[self::PSR_CONTAINER] ??= $implementationsPackage::candidatesAll();
+
+        return self::discoverAll(self::PSR_CONTAINER);
     }
 
     public static function eventDispatcher(bool $singleton = false): ?object
@@ -178,6 +237,19 @@ final class Discover implements DiscoverContract
         return self::discover(self::PSR_EVENT_DISPATCHER);
     }
 
+    public static function eventDispatchers(): array
+    {
+        $implementationsPackage = '\PsrDiscovery\Implementations\Psr14\EventDispatchers';
+
+        if (! class_exists($implementationsPackage)) {
+            throw new SupportPackageNotFoundException('PSR-14 Event Dispatcher', 'psr-discovery/event-dispatcher-implementations');
+        }
+
+        self::$extendedCandidates[self::PSR_EVENT_DISPATCHER] ??= $implementationsPackage::candidatesAll();
+
+        return self::discoverAll(self::PSR_EVENT_DISPATCHER);
+    }
+
     public static function httpClient(bool $singleton = false): ?object
     {
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr18\Clients';
@@ -193,6 +265,32 @@ final class Discover implements DiscoverContract
         }
 
         return self::discover(self::PSR_HTTP_CLIENT);
+    }
+
+    public static function httpClients(): array
+    {
+        $implementationsPackage = '\PsrDiscovery\Implementations\Psr18\Clients';
+
+        if (! class_exists($implementationsPackage)) {
+            throw new SupportPackageNotFoundException('PSR-18 HTTP Client', 'psr-discovery/http-client-implementations');
+        }
+
+        self::$extendedCandidates[self::PSR_HTTP_CLIENT] ??= $implementationsPackage::candidatesAll();
+
+        return self::discoverAll(self::PSR_HTTP_CLIENT);
+    }
+
+    public static function httpRequestFactories(): array
+    {
+        $implementationsPackage = '\PsrDiscovery\Implementations\Psr17\RequestFactories';
+
+        if (! class_exists($implementationsPackage)) {
+            throw new SupportPackageNotFoundException('PSR-17 HTTP Request Factory', 'psr-discovery/http-factory-implementations');
+        }
+
+        self::$extendedCandidates[self::PSR_HTTP_REQUEST_FACTORY] ??= $implementationsPackage::candidatesAll();
+
+        return self::discoverAll(self::PSR_HTTP_REQUEST_FACTORY);
     }
 
     public static function httpRequestFactory(bool $singleton = false): ?object
@@ -212,6 +310,19 @@ final class Discover implements DiscoverContract
         return self::discover(self::PSR_HTTP_REQUEST_FACTORY);
     }
 
+    public static function httpResponseFactories(): array
+    {
+        $implementationsPackage = '\PsrDiscovery\Implementations\Psr17\ResponseFactories';
+
+        if (! class_exists($implementationsPackage)) {
+            throw new SupportPackageNotFoundException('PSR-17 HTTP Response Factory', 'psr-discovery/http-factory-implementations');
+        }
+
+        self::$extendedCandidates[self::PSR_HTTP_RESPONSE_FACTORY] ??= $implementationsPackage::candidatesAll();
+
+        return self::discoverAll(self::PSR_HTTP_RESPONSE_FACTORY);
+    }
+
     public static function httpResponseFactory(bool $singleton = false): ?object
     {
         $implementationsPackage = '\PsrDiscovery\Implementations\Psr17\ResponseFactories';
@@ -227,6 +338,19 @@ final class Discover implements DiscoverContract
         }
 
         return self::discover(self::PSR_HTTP_RESPONSE_FACTORY);
+    }
+
+    public static function httpStreamFactories(): array
+    {
+        $implementationsPackage = '\PsrDiscovery\Implementations\Psr17\StreamFactories';
+
+        if (! class_exists($implementationsPackage)) {
+            throw new SupportPackageNotFoundException('PSR-17 HTTP Stream Factory', 'psr-discovery/http-factory-implementations');
+        }
+
+        self::$extendedCandidates[self::PSR_HTTP_STREAM_FACTORY] ??= $implementationsPackage::candidatesAll();
+
+        return self::discoverAll(self::PSR_HTTP_STREAM_FACTORY);
     }
 
     public static function httpStreamFactory(bool $singleton = false): ?object
@@ -261,5 +385,18 @@ final class Discover implements DiscoverContract
         }
 
         return self::discover(self::PSR_LOG);
+    }
+
+    public static function logs(): array
+    {
+        $implementationsPackage = '\PsrDiscovery\Implementations\Psr3\Logs';
+
+        if (! class_exists($implementationsPackage)) {
+            throw new SupportPackageNotFoundException('PSR-3 Logger', 'psr-discovery/log-implementations');
+        }
+
+        self::$extendedCandidates[self::PSR_LOG] ??= $implementationsPackage::candidatesAll();
+
+        return self::discoverAll(self::PSR_LOG);
     }
 }
