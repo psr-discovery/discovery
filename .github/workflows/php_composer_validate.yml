@@ -1,0 +1,15 @@
+name: "Composer Validate"
+
+on:
+  pull_request_target: {}
+  push:
+    branches:
+      - 1.x
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - run: composer validate

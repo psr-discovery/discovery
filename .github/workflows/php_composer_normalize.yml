@@ -1,0 +1,15 @@
+name: "Composer Normalize"
+
+on:
+  pull_request_target: {}
+  push:
+    branches:
+      - 1.x
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: docker://ergebnis/composer-normalize-action

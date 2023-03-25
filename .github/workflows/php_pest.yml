@@ -1,36 +1,24 @@
+name: "PEST"
+
 on:
-  pull_request_target:
-    types:
-      - opened
-      - edited
-      - synchronize
-      - reopened
-      - ready_for_review
-      - converted_to_draft
-      - review_requested
+  pull_request_target: {}
   push:
     branches:
       - 1.x
 
 jobs:
-  run:
-    name: php-cs-fixer
-    runs-on: ${{ matrix.operating-systems }}
+  pest:
+    runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
-      matrix:
-        operating-systems:
-          - ubuntu-latest
-        php-versions:
-          - 8.1
 
     steps:
       - uses: actions/checkout@v3
 
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          php-version: 8.1
           coverage: pcov
 
       - id: composer-cache
@@ -44,4 +32,9 @@ jobs:
 
       - run: composer install --no-progress --prefer-dist --optimize-autoloader
 
-      - run: vendor/bin/phpstan analyze
+      - run: vendor/bin/pest --order-by random --compact
+
+      - uses: codecov/codecov-action@v3
+        with:
+          directory: ./coverage/
+          flags: unittests
