@@ -31,7 +31,7 @@ interface DiscoverContract
      *
      * Compatible libraries: https://packagist.org/providers/psr/container-implementation
      *
-     * @return null|\Psr\Container\ContainerInterface A PSR-11 Container, or null if one cannot be found.
+     * @return null|\Psr\Cache\CacheItemPoolInterface A PSR-11 Container, or null if one cannot be found.
      */
     public static function container(): ?object;
 
