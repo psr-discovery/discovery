@@ -11,6 +11,8 @@ use PsrDiscovery\Contracts\DiscoverContract;
 use PsrDiscovery\Entities\CandidateEntity;
 use PsrDiscovery\Exceptions\SupportPackageNotFoundException;
 
+use Throwable;
+
 final class Discover implements DiscoverContract
 {
     /**
@@ -97,10 +99,13 @@ final class Discover implements DiscoverContract
         // Try to find a candidate that satisfies the version constraints.
         foreach (self::$candidates[$interface]->all() as $candidateEntity) {
             /** @var CandidateEntity $candidateEntity */
-            if (Composer::satisfies(new Version(), $candidateEntity->getPackage(), $candidateEntity->getVersion())) {
-                self::$discovered[$interface] = $candidateEntity;
+            try {
+                if (Composer::satisfies(new Version(), $candidateEntity->getPackage(), $candidateEntity->getVersion())) {
+                    self::$discovered[$interface] = $candidateEntity;
 
-                return $candidateEntity->build();
+                    return $candidateEntity->build();
+                }
+            } catch (Throwable) {
             }
         }
 
