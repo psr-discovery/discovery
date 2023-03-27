@@ -1,6 +1,6 @@
 **Lightweight library that discovers available PSR implementations by searching for a list of well-known classes that implement the relevant interfaces, and returning an instance of the first one that is found.**
 
-The library currently supports [PSR-18 HTTP Clients](https://github.com/psr-discovery/http-client-implementations), [PSR-17 HTTP Factories](https://github.com/psr-discovery/http-factory-implementations), [PSR-14 Event Dispatchers](https://github.com/psr-discovery/event-dispatcher-implementations), [PSR-11 Containers](https://github.com/psr-discovery/container-implementations), [PSR-6 Cache](https://github.com/psr-discovery/cache-implementations) and [PSR-3 Loggers](https://github.com/psr-discovery/log-implementations).
+The library currently supports [PSR-18 HTTP Clients](https://github.com/psr-discovery/http-client-implementations), [PSR-17 HTTP Factories](https://github.com/psr-discovery/http-factory-implementations), [PSR-14 Event Dispatchers](https://github.com/psr-discovery/event-dispatcher-implementations), [PSR-11 Containers](https://github.com/psr-discovery/container-implementations), [PSR-6 Caches](https://github.com/psr-discovery/cache-implementations) and [PSR-3 Logs](https://github.com/psr-discovery/log-implementations).
 
 This is largely intended for inclusion in libraries like SDKs that wish to support PSR interfaces without requiring hard dependencies on specific implementations or demanding extra configuration by users.
 
@@ -10,8 +10,8 @@ This is largely intended for inclusion in libraries like SDKs that wish to suppo
     -   [PSR-17 HTTP Factories](#psr-17-http-factories)
     -   [PSR-14 Event Dispatchers](#psr-14-event-dispatchers)
     -   [PSR-11 Containers](#psr-11-containers)
-    -   [PSR-6 Cache](#psr-6-cache)
-    -   [PSR-3 Loggers](#psr-3-loggers)
+    -   [PSR-6 Caches](#psr-6-caches)
+    -   [PSR-3 Logs](#psr-3-logs)
 -   [Handling Failures](#handling-failures)
 -   [Exceptions](#exceptions)
 -   [Singletons](#singletons)
@@ -112,7 +112,7 @@ $container = Discover::container();
 
 Please see the [psr-discovery/container-implementations](https://github.com/psr-discovery/container-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
 
-### PSR-6 Cache
+### PSR-6 Caches
 
 Installation:
 
@@ -130,7 +130,7 @@ $cache = Discover::cache();
 
 Please see the [psr-discovery/cache-implementations](https://github.com/psr-discovery/cache-implementations) repository for a list of the supported implementations. If a particular implementation is missing you'd like to see, please open a pull request adding support.
 
-### PSR-3 Loggers
+### PSR-3 Logs
 
 Installation:
 
