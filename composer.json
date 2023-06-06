@@ -32,7 +32,7 @@
         "pestphp/pest": "^2.0",
         "phpstan/phpstan": "^1.10",
         "phpstan/phpstan-strict-rules": "^1.5",
-        "rector/rector": "^0.15",
+        "rector/rector": "^0.15 || ^0.17",
         "vimeo/psalm": "^5.8",
         "wikimedia/composer-merge-plugin": "^2.0"
     },
