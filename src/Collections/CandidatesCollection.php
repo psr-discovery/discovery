@@ -6,6 +6,7 @@ namespace PsrDiscovery\Collections;
 
 use InvalidArgumentException;
 use PsrDiscovery\Entities\CandidateEntity;
+
 use function array_key_exists;
 
 final class CandidatesCollection
@@ -58,7 +59,7 @@ final class CandidatesCollection
         string $candidate,
     ): void {
         $candidates = $this->candidates;
-        $candidate  = trim($candidate);
+        $candidate = trim($candidate);
 
         if ('' === $candidate || ! array_key_exists($candidate, $candidates)) {
             return;
@@ -71,9 +72,9 @@ final class CandidatesCollection
 
         unset($candidates[$candidate->getPackage()]);
 
-        $candidates                                 = array_reverse($candidates, true);
-        $candidates[$candidate->getPackage()]       = $candidate;
-        $this->candidates                           = array_reverse($candidates, true);
+        $candidates = array_reverse($candidates, true);
+        $candidates[$candidate->getPackage()] = $candidate;
+        $this->candidates = array_reverse($candidates, true);
     }
 
     public function remove(

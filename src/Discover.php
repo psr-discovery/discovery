@@ -18,27 +18,27 @@ final class Discover implements DiscoverContract
     /**
      * @var string
      */
-    private const PSR_CACHE                 = '\Psr\Cache\CacheItemPoolInterface';
+    private const PSR_CACHE = '\Psr\Cache\CacheItemPoolInterface';
 
     /**
      * @var string
      */
-    private const PSR_CONTAINER             = '\Psr\Container\ContainerInterface';
+    private const PSR_CONTAINER = '\Psr\Container\ContainerInterface';
 
     /**
      * @var string
      */
-    private const PSR_EVENT_DISPATCHER      = '\Psr\EventDispatcher\EventDispatcherInterface';
+    private const PSR_EVENT_DISPATCHER = '\Psr\EventDispatcher\EventDispatcherInterface';
 
     /**
      * @var string
      */
-    private const PSR_HTTP_CLIENT           = '\Psr\Http\Client\ClientInterface';
+    private const PSR_HTTP_CLIENT = '\Psr\Http\Client\ClientInterface';
 
     /**
      * @var string
      */
-    private const PSR_HTTP_REQUEST_FACTORY  = '\Psr\Http\Message\RequestFactoryInterface';
+    private const PSR_HTTP_REQUEST_FACTORY = '\Psr\Http\Message\RequestFactoryInterface';
 
     /**
      * @var string
@@ -48,12 +48,12 @@ final class Discover implements DiscoverContract
     /**
      * @var string
      */
-    private const PSR_HTTP_STREAM_FACTORY   = '\Psr\Http\Message\StreamFactoryInterface';
+    private const PSR_HTTP_STREAM_FACTORY = '\Psr\Http\Message\StreamFactoryInterface';
 
     /**
      * @var string
      */
-    private const PSR_LOG                   = '\Psr\Log\LoggerInterface';
+    private const PSR_LOG = '\Psr\Log\LoggerInterface';
 
     /**
      * @var CandidatesCollection[]
@@ -74,96 +74,6 @@ final class Discover implements DiscoverContract
      * @var object[]
      */
     private static array $singletons = [];
-
-    /**
-     * Discover an interface implementation from a list of well-known classes.
-     *
-     * @param string $interface The interface to discover.
-     *
-     * @return null|object The discovered implementation, or null if none could be found
-     *
-     * @psalm-suppress MixedInferredReturnType,MixedReturnStatement,MixedMethodCall
-     */
-    private static function discover(string $interface): ?object
-    {
-        // If we've already discovered an implementation, return it.
-        if (isset(self::$discovered[$interface])) {
-            return self::$discovered[$interface]->build();
-        }
-
-        // If we don't have any candidates, return null.
-        if (! isset(self::$candidates[$interface])) {
-            return null;
-        }
-
-        // Try to find a candidate that satisfies the version constraints.
-        foreach (self::$candidates[$interface]->all() as $candidateEntity) {
-            /** @var CandidateEntity $candidateEntity */
-            try {
-                if (Composer::satisfies(new Version(), $candidateEntity->getPackage(), $candidateEntity->getVersion())) {
-                    self::$discovered[$interface] = $candidateEntity;
-
-                    return $candidateEntity->build();
-                }
-            } catch (Throwable) {
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Discover all available interface implementations from a list of well-known classes.
-     *
-     * @param string $interface The interface to discover.
-     *
-     * @return CandidateEntity[] The discovered implementations, or null if none could be found
-     *
-     * @psalm-suppress MixedInferredReturnType,MixedReturnStatement,MixedMethodCall
-     */
-    private static function discoveries(string $interface): array
-    {
-        if (! isset(self::$extendedCandidates[$interface])) {
-            return [];
-        }
-
-        $discovered = [];
-
-        // Try to find a candidate that satisfies the version constraints.
-        foreach (self::$extendedCandidates[$interface]->all() as $candidateEntity) {
-            /** @var CandidateEntity $candidateEntity */
-            if (Composer::satisfies(new Version(), $candidateEntity->getPackage(), $candidateEntity->getVersion())) {
-                $discovered[] = $candidateEntity;
-            }
-        }
-
-        return $discovered;
-    }
-
-    /**
-     * Discover an interface implementation from a list of well-known classes, and cache the resulting instance.
-     *
-     * @param string $interface The interface to discover.
-     *
-     * @return null|object The discovered implementation, or null if none could be found
-     *
-     * @psalm-suppress MixedInferredReturnType,MixedReturnStatement,MixedMethodCall
-     */
-    private static function singleton(string $interface): ?object
-    {
-        // If we've already discovered an implementation, return it.
-        if (isset(self::$singletons[$interface])) {
-            return self::$singletons[$interface];
-        }
-
-        $instance = self::discover($interface);
-
-        if (null !== $instance) {
-            self::$singletons[$interface] = $instance;
-        }
-
-        return $instance;
-    }
 
     public static function cache(bool $singleton = false): ?object
     {
@@ -403,5 +313,95 @@ final class Discover implements DiscoverContract
         self::$extendedCandidates[self::PSR_LOG] ??= $implementationsPackage::allCandidates();
 
         return self::discoveries(self::PSR_LOG);
+    }
+
+    /**
+     * Discover an interface implementation from a list of well-known classes.
+     *
+     * @param string $interface The interface to discover.
+     *
+     * @return null|object The discovered implementation, or null if none could be found
+     *
+     * @psalm-suppress MixedInferredReturnType,MixedReturnStatement,MixedMethodCall
+     */
+    private static function discover(string $interface): ?object
+    {
+        // If we've already discovered an implementation, return it.
+        if (isset(self::$discovered[$interface])) {
+            return self::$discovered[$interface]->build();
+        }
+
+        // If we don't have any candidates, return null.
+        if (! isset(self::$candidates[$interface])) {
+            return null;
+        }
+
+        // Try to find a candidate that satisfies the version constraints.
+        foreach (self::$candidates[$interface]->all() as $candidateEntity) {
+            /** @var CandidateEntity $candidateEntity */
+            try {
+                if (Composer::satisfies(new Version(), $candidateEntity->getPackage(), $candidateEntity->getVersion())) {
+                    self::$discovered[$interface] = $candidateEntity;
+
+                    return $candidateEntity->build();
+                }
+            } catch (Throwable) {
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Discover all available interface implementations from a list of well-known classes.
+     *
+     * @param string $interface The interface to discover.
+     *
+     * @return CandidateEntity[] The discovered implementations, or null if none could be found
+     *
+     * @psalm-suppress MixedInferredReturnType,MixedReturnStatement,MixedMethodCall
+     */
+    private static function discoveries(string $interface): array
+    {
+        if (! isset(self::$extendedCandidates[$interface])) {
+            return [];
+        }
+
+        $discovered = [];
+
+        // Try to find a candidate that satisfies the version constraints.
+        foreach (self::$extendedCandidates[$interface]->all() as $candidateEntity) {
+            /** @var CandidateEntity $candidateEntity */
+            if (Composer::satisfies(new Version(), $candidateEntity->getPackage(), $candidateEntity->getVersion())) {
+                $discovered[] = $candidateEntity;
+            }
+        }
+
+        return $discovered;
+    }
+
+    /**
+     * Discover an interface implementation from a list of well-known classes, and cache the resulting instance.
+     *
+     * @param string $interface The interface to discover.
+     *
+     * @return null|object The discovered implementation, or null if none could be found
+     *
+     * @psalm-suppress MixedInferredReturnType,MixedReturnStatement,MixedMethodCall
+     */
+    private static function singleton(string $interface): ?object
+    {
+        // If we've already discovered an implementation, return it.
+        if (isset(self::$singletons[$interface])) {
+            return self::$singletons[$interface];
+        }
+
+        $instance = self::discover($interface);
+
+        if (null !== $instance) {
+            self::$singletons[$interface] = $instance;
+        }
+
+        return $instance;
     }
 }
