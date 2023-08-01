@@ -20,17 +20,17 @@ abstract class Implementation implements ImplementationContract
      */
     abstract public static function candidates(): CandidatesCollection;
 
-    final public static function add(CandidateEntity $candidate): void
+    public static function add(CandidateEntity $candidate): void
     {
         static::candidates()->add($candidate);
     }
 
-    final public static function prefer(string $package): void
+    public static function prefer(string $package): void
     {
         static::candidates()->prefer($package);
     }
 
-    final public static function set(CandidatesCollection $candidates): void
+    public static function set(CandidatesCollection $candidates): void
     {
         static::candidates()->set($candidates);
     }
