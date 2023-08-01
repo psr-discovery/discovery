@@ -1,8 +1,9 @@
 name: "Dependency Review"
-on: [pull_request_target]
 
-permissions:
-  contents: read
+on:
+  pull_request: {}
+
+permissions: {}
 
 jobs:
   dependency-review:
@@ -11,4 +12,4 @@ jobs:
       - name: "Checkout Repository"
         uses: actions/checkout@v3
       - name: "Dependency Review"
-        uses: actions/dependency-review-action@v2
+        uses: actions/dependency-review-action@v3
