@@ -22,7 +22,7 @@ This is largely intended for inclusion in libraries like SDKs that wish to suppo
 
 ## Requirements
 
--   PHP 8.0+
+-   PHP 8.1+
 -   Composer 2.0+
 
 The discovery of a particular interface requires the presence of a compatible implementation in the host application. This library does not install any implementations for you.
