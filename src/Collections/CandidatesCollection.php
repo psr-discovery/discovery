@@ -82,7 +82,7 @@ final class CandidatesCollection
     ): bool {
         $candidate = $this->candidates[$package] ?? null;
 
-        if (! $candidate instanceof \PsrDiscovery\Entities\CandidateEntity) {
+        if (! $candidate instanceof CandidateEntity) {
             return false;
         }
 
