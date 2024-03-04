@@ -53,6 +53,16 @@ final class Discover implements DiscoverContract
     /**
      * @var string
      */
+    private const PSR_HTTP_UPLOADED_FILE_FACTORY = '\Psr\Http\Message\UploadedFileFactoryInterface';
+
+    /**
+     * @var string
+     */
+    private const PSR_HTTP_URI_FACTORY = '\Psr\Http\Message\UriFactoryInterface';
+
+    /**
+     * @var string
+     */
     private const PSR_LOG = '\Psr\Log\LoggerInterface';
 
     /**
@@ -283,6 +293,66 @@ final class Discover implements DiscoverContract
         }
 
         return self::discover(self::PSR_HTTP_STREAM_FACTORY);
+    }
+
+    public static function httpUploadedFileFactories(): array
+    {
+        $implementationsPackage = '\PsrDiscovery\Implementations\Psr17\UploadedFileFactories';
+
+        if (! class_exists($implementationsPackage)) {
+            throw new SupportPackageNotFoundException('PSR-17 HTTP UploadedFile Factory', 'psr-discovery/http-factory-implementations');
+        }
+
+        self::$extendedCandidates[self::PSR_HTTP_UPLOADED_FILE_FACTORY] ??= $implementationsPackage::allCandidates();
+
+        return self::discoveries(self::PSR_HTTP_UPLOADED_FILE_FACTORY);
+    }
+
+    public static function httpUploadedFileFactory(bool $singleton = false): ?object
+    {
+        $implementationsPackage = '\PsrDiscovery\Implementations\Psr17\UploadedFileFactories';
+
+        if (! class_exists($implementationsPackage)) {
+            throw new SupportPackageNotFoundException('PSR-17 HTTP UploadedFile Factory', 'psr-discovery/http-factory-implementations');
+        }
+
+        self::$candidates[self::PSR_HTTP_UPLOADED_FILE_FACTORY] ??= $implementationsPackage::candidates();
+
+        if ($singleton) {
+            return self::singleton(self::PSR_HTTP_UPLOADED_FILE_FACTORY);
+        }
+
+        return self::discover(self::PSR_HTTP_UPLOADED_FILE_FACTORY);
+    }
+
+    public static function httpUriFactories(): array
+    {
+        $implementationsPackage = '\PsrDiscovery\Implementations\Psr17\UriFactories';
+
+        if (! class_exists($implementationsPackage)) {
+            throw new SupportPackageNotFoundException('PSR-17 HTTP Uri Factory', 'psr-discovery/http-factory-implementations');
+        }
+
+        self::$extendedCandidates[self::PSR_HTTP_URI_FACTORY] ??= $implementationsPackage::allCandidates();
+
+        return self::discoveries(self::PSR_HTTP_URI_FACTORY);
+    }
+
+    public static function httpUriFactory(bool $singleton = false): ?object
+    {
+        $implementationsPackage = '\PsrDiscovery\Implementations\Psr17\UriFactories';
+
+        if (! class_exists($implementationsPackage)) {
+            throw new SupportPackageNotFoundException('PSR-17 HTTP Uri Factory', 'psr-discovery/http-factory-implementations');
+        }
+
+        self::$candidates[self::PSR_HTTP_URI_FACTORY] ??= $implementationsPackage::candidates();
+
+        if ($singleton) {
+            return self::singleton(self::PSR_HTTP_URI_FACTORY);
+        }
+
+        return self::discover(self::PSR_HTTP_URI_FACTORY);
     }
 
     public static function log(bool $singleton = false): ?object

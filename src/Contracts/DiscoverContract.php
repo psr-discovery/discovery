@@ -135,6 +135,42 @@ interface DiscoverContract
     public static function httpStreamFactory(): ?object;
 
     /**
+     * Returns an array with all PSR-17 HTTP Uploaded File Factory implementations discovered. No implementations are instantiated by the discovery process.
+     *
+     * Compatible providers: https://packagist.org/providers/psr/http-factory-implementation
+     *
+     * @return CandidateEntity[] An array of CandidateEntity objects representing all implementations discovered.
+     */
+    public static function httpUploadedFileFactories(): array;
+
+    /**
+     * Returns a PSR-17 HTTP Uploaded File factory, or null if one is not found.
+     *
+     * Compatible libraries: https://packagist.org/providers/psr/http-factory-implementation
+     *
+     * @return null|\Psr\Http\Message\UploadedFileFactoryInterface A PSR-17 HTTP UploadedFile factory, or null if one cannot be found.
+     */
+    public static function httpUploadedFileFactory(): ?object;
+
+    /**
+     * Returns an array with all PSR-17 HTTP Uri Factory implementations discovered. No implementations are instantiated by the discovery process.
+     *
+     * Compatible providers: https://packagist.org/providers/psr/http-factory-implementation
+     *
+     * @return CandidateEntity[] An array of CandidateEntity objects representing all implementations discovered.
+     */
+    public static function httpUriFactories(): array;
+
+    /**
+     * Returns a PSR-17 HTTP Uri factory, or null if one is not found.
+     *
+     * Compatible libraries: https://packagist.org/providers/psr/http-factory-implementation
+     *
+     * @return null|\Psr\Http\Message\UriFactoryInterface A PSR-17 HTTP Uri factory, or null if one cannot be found.
+     */
+    public static function httpUriFactory(): ?object;
+
+    /**
      * Returns a PSR-3 Logger, or null if one is not found.
      *
      * Compatible libraries: https://packagist.org/providers/psr/log-implementation
