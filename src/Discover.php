@@ -441,9 +441,12 @@ final class Discover implements DiscoverContract
 
         // Try to find a candidate that satisfies the version constraints.
         foreach (self::$extendedCandidates[$interface]->all() as $candidateEntity) {
-            /** @var CandidateEntity $candidateEntity */
-            if (Composer::satisfies(new Version(), $candidateEntity->getPackage(), $candidateEntity->getVersion())) {
-                $discovered[] = $candidateEntity;
+            try {
+                /** @var CandidateEntity $candidateEntity */
+                if (Composer::satisfies(new Version(), $candidateEntity->getPackage(), $candidateEntity->getVersion())) {
+                    $discovered[] = $candidateEntity;
+                }
+            } catch (Throwable) {
             }
         }
 
